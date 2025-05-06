@@ -9,7 +9,6 @@ CREATE TABLE categories (
   `name` VARCHAR(255) NOT NULL
 );
 
-
 CREATE TABLE skills (
   `id` SERIAL PRIMARY KEY,
   `name` VARCHAR(255) NOT NULL,
@@ -35,7 +34,6 @@ CREATE TABLE goals (
   `created_at` TIMESTAMP DEFAULT NOW(),
   `status` VARCHAR(50) DEFAULT 'in_progress' 
 );
-
 
 INSERT INTO `categories` (`name`) VALUES
   ('Programming'),
