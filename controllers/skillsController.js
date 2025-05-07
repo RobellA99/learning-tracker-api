@@ -1,5 +1,21 @@
 import connection from "../utils/mysql.js";
 
+const getSkills = async (_req, res) => {
+  const sql = "SELECT * FROM skills";
+
+  try {
+    const [results] = await connection.query(sql);
+
+    if (!results.length) {
+      return res.status(404).json({ message: "No skills found" });
+    }
+
+    res.json(results);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 const getSkillsByCategory = async (req, res) => {
   const { category_id } = req.query;
 
@@ -19,8 +35,7 @@ const getSkillsByCategory = async (req, res) => {
 
     res.json(results);
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ error: error.message });
   }
 };
 
@@ -46,4 +61,4 @@ const getSkillsByResource = async (req, res) => {
   }
 };
 
-export { getSkillsByCategory, getSkillsByResource };
+export { getSkillsByCategory, getSkillsByResource, getSkills };
