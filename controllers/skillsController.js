@@ -1,4 +1,5 @@
 import connection from "../utils/mysql.js";
+import { validateSkillsForm } from "../utils/helper.js";
 
 const getSkills = async (_req, res) => {
   const sql = "SELECT * FROM skills";
@@ -61,4 +62,23 @@ const getSkillsByResource = async (req, res) => {
   }
 };
 
-export { getSkillsByCategory, getSkillsByResource, getSkills };
+const addSkills = async (req, res) => {
+  const formData = req.body;
+  const sql = "INSERT INTO skills SET ?";
+
+  const validationResult = validateSkillsForm(formData);
+
+  if (!validationResult.success) {
+    return res.status(400).json({ error: validationResult.error });
+  }
+
+  try {
+    const [results] = await connection.query(sql, [formData]);
+
+    res.status(201).json({ message: "Created Skill" });
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+};
+
+export { getSkillsByCategory, getSkillsByResource, getSkills, addSkills };
