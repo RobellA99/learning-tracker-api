@@ -77,8 +77,59 @@ const addSkills = async (req, res) => {
 
     res.status(201).json({ message: "Created Skill" });
   } catch (error) {
-    res.status(500).json({ error: error });
+    res.status(500).json({ error: error.message });
   }
 };
 
-export { getSkillsByCategory, getSkillsByResource, getSkills, addSkills };
+const deleteSkill = async (req, res) => {
+  const skillId = req.params.id;
+
+  const sql = "DELETE FROM skills WHERE skills.id = ?";
+
+  try {
+    const [results] = await connection.query(sql, [skillId]);
+
+    if (results.affectedRows === 0) {
+      res.status(404).json({ message: `No record with ID ${skillId} found` });
+    }
+
+    res.status(204).end();
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const updateSkill = async (req, res) => {
+  const skillId = req.params.id;
+
+  if (!req.body.name || !req.body.category_id) {
+    return res
+      .status(400)
+      .send({ message: "Include criteria you want to update" });
+  }
+
+  const sql = "UPDATE skills SET ? WHERE skills.id = ?";
+
+  try {
+    const [results] = await connection.query(sql, [skillId]);
+
+    if (results.affectedRows === 0) {
+      return res
+        .status(404)
+        .json({ message: `No record with ID ${skillId} found` });
+    }
+
+    res.json({ message: "Skill has been updated" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+export {
+  getSkillsByCategory,
+  getSkillsByResource,
+  getSkills,
+  addSkills,
+  deleteSkill,
+  updateSkill,
+};
