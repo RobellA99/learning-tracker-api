@@ -11,4 +11,17 @@ function validateSkillsForm(data) {
   };
 }
 
-export { validateSkillsForm };
+function validateCategoriesForm(data) {
+  if (!data.name) {
+    return {
+      success: false,
+      error: "Fields are required",
+    };
+  }
+  return {
+    success: true,
+    data: data,
+  };
+}
+
+export { validateSkillsForm, validateCategoriesForm };
