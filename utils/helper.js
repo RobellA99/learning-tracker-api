@@ -24,4 +24,23 @@ function validateCategoriesForm(data) {
   };
 }
 
-export { validateSkillsForm, validateCategoriesForm };
+function validateResourcesForm(data) {
+  if (
+    !data.skill_id ||
+    !data.title ||
+    !data.url ||
+    !data.format ||
+    !data.difficulty
+  ) {
+    return {
+      success: false,
+      error: "Fields are required",
+    };
+  }
+  return {
+    success: true,
+    data: data,
+  };
+}
+
+export { validateSkillsForm, validateCategoriesForm, validateResourcesForm };
