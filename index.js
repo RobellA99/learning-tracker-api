@@ -20,7 +20,7 @@ app.get("/", (_req, res) => {
 app.use("/skills", skillsRoutes);
 app.use("/goals", goalsRoutes);
 app.use("/resources", resourcesRoutes);
-app.use("categories", categoriesRoutes);
+app.use("/categories", categoriesRoutes);
 
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
