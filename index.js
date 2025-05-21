@@ -5,6 +5,7 @@ import skillsRoutes from "./routes/skillsRoutes.js";
 import goalsRoutes from "./routes/goalsRoutes.js";
 import resourcesRoutes from "./routes/resourcesRoutes.js";
 import categoriesRoutes from "./routes/categoriesRoutes.js";
+import usersRoutes from "./routes/usersRoutes.js";
 
 const PORT = process.env.PORT || 5050;
 
@@ -21,6 +22,7 @@ app.use("/skills", skillsRoutes);
 app.use("/goals", goalsRoutes);
 app.use("/resources", resourcesRoutes);
 app.use("/categories", categoriesRoutes);
+app.use("user", usersRoutes);
 
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);

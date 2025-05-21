@@ -56,9 +56,37 @@ function validateGoalsForm(data) {
   };
 }
 
+function validateUsersRegisterForm(data) {
+  if (!req.body.name || !req.body.email || !req.body.password) {
+    return {
+      success: false,
+      error: "Fields are required",
+    };
+  }
+  return {
+    success: true,
+    data: data,
+  };
+}
+
+function validateUsersLoginForm(data) {
+  if (!req.body.email || !req.body.password) {
+    return {
+      success: false,
+      error: "Fields are reuired",
+    };
+  }
+  return {
+    success: true,
+    data: data,
+  };
+}
+
 export {
   validateSkillsForm,
   validateCategoriesForm,
   validateResourcesForm,
   validateGoalsForm,
+  validateUsersRegisterForm,
+  validateUsersLoginForm,
 };
