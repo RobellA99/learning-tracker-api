@@ -2,6 +2,9 @@ import express from "express";
 import cors from "cors";
 import "dotenv/config";
 import skillsRoutes from "./routes/skillsRoutes.js";
+import goalsRoutes from "./routes/goalsRoutes.js";
+import resourcesRoutes from "./routes/resourcesRoutes.js";
+import categoriesRoutes from "./routes/categoriesRoutes.js";
 
 const PORT = process.env.PORT || 5050;
 
@@ -15,6 +18,9 @@ app.get("/", (_req, res) => {
 });
 
 app.use("/skills", skillsRoutes);
+app.use("/goals", goalsRoutes);
+app.use("/resources", resourcesRoutes);
+app.use("categories", categoriesRoutes);
 
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
