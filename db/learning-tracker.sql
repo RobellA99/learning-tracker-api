@@ -46,7 +46,7 @@ CREATE TABLE `goals` (
 
 -- Insert initial data
 INSERT INTO `users` (`name`, `email`, `password`) VALUES
-  ('Robell Asfaw', 'robell@example.com', 'hashed_password_123');
+  ('Robell Asfaw', 'robell@example.com', 'ee3ab45438c62955328e3bd685a4fc52d0bfc08d2926b022774c434bf2f51933dd738f1650a09fde01565a5deec8d9f4a529790fc1504b03bb4e6347a0ba2916bd5b89b25e5e62829e18af545b6da1bc9db56c1ceffa320d8d56ad00f258b3f6cb33a56c104c5663cab484f4bd1237fecfb76b08bd91bffe1a3179069bd4e3c09d1eb1db664eb7d692a11eed3335c50b15e6530f31cbd748fdabcb49401705a6e86160389f111c3ac89baf2e486337bfd35b5797a5d0c9049bd99969a138d6b7c6a2c713346f4012e037c10852ef01bc83d602bde58019794c0d1a558140184ab2b9382e024de22ef9a84c4d12c301747b5e45b2d204e5582ca7f4bfaa4140dc');
 
 INSERT INTO `categories` (`name`) VALUES
   ('Programming'),
