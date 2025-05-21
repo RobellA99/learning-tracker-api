@@ -53,4 +53,36 @@ const deleteGoal = async (req, res) => {
   }
 };
 
-export { getGoals, addGoal };
+const updateGoal = async (req, res) => {
+  const goalId = req.params.id;
+
+  if (
+    !req.params.user_id ||
+    !req.params.skill_id ||
+    !req.params.target_date ||
+    !req.params.note ||
+    !req.params.status
+  ) {
+    return res.status(400).send({ message: "Please include necessary field" });
+  }
+
+  const { created_at } = req.body;
+
+  const sql = "UPDATE goals SET ? WHERE goals.id = ?";
+
+  try {
+    const [results] = await connection.query(sql, [goalId, created_at]);
+
+    if (results.affectedRows === 0) {
+      return res
+        .status(404)
+        .json({ message: `No record with ID ${goalId} found` });
+    }
+
+    res.status(201).json({ message: "Goal Updated" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+export { getGoals, addGoal, deleteGoal, updateGoal };
