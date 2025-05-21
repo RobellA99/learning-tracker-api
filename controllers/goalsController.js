@@ -16,7 +16,7 @@ const getGoals = async (_req, res) => {
   res.status(500).json({ error: error.message });
 };
 
-const addGoals = async (req, res) => {
+const addGoal = async (req, res) => {
   const formData = req.body;
   const sql = "INSERT INTO goals SET ?";
 
@@ -35,4 +35,22 @@ const addGoals = async (req, res) => {
   }
 };
 
-export { getGoals, addGoals };
+const deleteGoal = async (req, res) => {
+  const goalId = req.params.id;
+
+  const sql = "DELETE FROM goals WHERE goals.id - ?";
+
+  try {
+    const [results] = await connection.query(sql, [goalId]);
+
+    if (results.affectedRows === 0) {
+      res.status(404).json({ message: `No record with Id ${goalId} found` });
+    }
+
+    res.status(204).end();
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+export { getGoals, addGoal };
