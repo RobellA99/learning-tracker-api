@@ -43,4 +43,22 @@ function validateResourcesForm(data) {
   };
 }
 
-export { validateSkillsForm, validateCategoriesForm, validateResourcesForm };
+function validateGoalsForm(data) {
+  if (!data.skill_id || !data.target_date || !data.note) {
+    return {
+      success: false,
+      error: "Fields are required",
+    };
+  }
+  return {
+    success: true,
+    data: data,
+  };
+}
+
+export {
+  validateSkillsForm,
+  validateCategoriesForm,
+  validateResourcesForm,
+  validateGoalsForm,
+};
