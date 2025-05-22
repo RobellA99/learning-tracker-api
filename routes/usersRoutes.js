@@ -7,6 +7,10 @@ import {
   registerUser,
 } from "../controllers/usersController.js";
 
-router.route("/").post(registerUser).post(loginUser).get(authorise, getUser);
+router.route("/").get(authorise, getUser);
+
+router.post("/register", registerUser);
+
+router.post("/login", loginUser);
 
 export default router;
