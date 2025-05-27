@@ -4,18 +4,18 @@ import jwt from "jsonwebtoken";
 const JWT_SECRET = process.env.JWT_SECRET;
 
 const authorise = async (req, res, next) => {
-  if (!req.headers.authorisation) {
+  if (!req.headers.authorization) {
     return res
       .status(401)
       .json({ message: "This route requires an auth token" });
   }
 
-  const token = req.headers.authorisation.split(" ")[1];
+  const token = req.headers.authorization.split(" ")[1];
 
   try {
     const decodedToken = jwt.verify(token, JWT_SECRET);
 
-    req.token = decodedToken;
+    req.user = decodedToken;
 
     next();
   } catch (error) {
