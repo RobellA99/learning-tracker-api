@@ -57,7 +57,7 @@ function validateGoalsForm(data) {
 }
 
 function validateUsersRegisterForm(data) {
-  if (!req.body.name || !req.body.email || !req.body.password) {
+  if (!data.name || !data.email || !data.password || !data.confirmPassword) {
     return {
       success: false,
       error: "Fields are required",
@@ -70,10 +70,10 @@ function validateUsersRegisterForm(data) {
 }
 
 function validateUsersLoginForm(data) {
-  if (!req.body.email || !req.body.password) {
+  if (!data.email || !data.password) {
     return {
       success: false,
-      error: "Fields are reuired",
+      error: "Fields are required",
     };
   }
   return {
