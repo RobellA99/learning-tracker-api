@@ -17,6 +17,4 @@ router
   .delete(deleteSkill)
   .patch(updateSkill);
 
-router.route("/:id").get(getSkillsByCategory).get(getSkillsByResource);
-
 export default router;

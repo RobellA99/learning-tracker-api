@@ -22,7 +22,7 @@ app.use("/skills", skillsRoutes);
 app.use("/goals", goalsRoutes);
 app.use("/resources", resourcesRoutes);
 app.use("/categories", categoriesRoutes);
-app.use("user", usersRoutes);
+app.use("/user", usersRoutes);
 
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);

@@ -1,56 +1,22 @@
 import connection from "../utils/mysql.js";
 import { validateSkillsForm } from "../utils/helper.js";
 
-const getSkills = async (_req, res) => {
-  const sql = "SELECT * FROM skills";
+const getSkills = async (req, res) => {
+  let sql = "SELECT * FROM skills";
+  const params = [];
+
+  if (req.query.category) {
+    sql = "SELECT * FROM skills WHERE category = ?";
+    params.push(req.query.category);
+  }
+  if (req.query.resource) {
+    sql =
+      "SELECT s.* FROM skills s JOIN resources r ON s.id = r.skill_id WHERE r.title = ?";
+    params.push(req.query.resource);
+  }
 
   try {
-    const [results] = await connection.query(sql);
-
-    if (!results.length) {
-      return res.status(404).json({ message: "No skills found" });
-    }
-
-    res.json(results);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
-
-const getSkillsByCategory = async (req, res) => {
-  const { category_id } = req.query;
-
-  if (!category_id) {
-    return res.status(400).json({ message: "Category is required" });
-  }
-
-  const sql =
-    "SELECT s.name, c.name AS category_name FROM skills AS s JOIN categories AS c ON s.category_id = c.id WHERE c.name = ?";
-
-  try {
-    const [results] = await connection.query(sql, [category_id]);
-
-    if (!results.length) {
-      return res.status(404).json({ message: "No skills found" });
-    }
-
-    res.json(results);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
-
-const getSkillsByResource = async (req, res) => {
-  const { title } = req.query;
-
-  if (!title) {
-    return res.status(400).json({ message: "Resource is required" });
-  }
-  const sql =
-    "SELECT s.name, r.title AS resource_name FROM skills AS s JOIN resources AS r ON s.id = r.skill_id WHERE r.title = ?";
-
-  try {
-    const [results] = await connection.query(sql, [title]);
+    const [results] = await connection.query(sql, params);
 
     if (!results.length) {
       return res.status(404).json({ message: "No skills found" });
