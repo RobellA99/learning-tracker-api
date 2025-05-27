@@ -5,7 +5,7 @@ const getSkills = async (req, res) => {
   let sql = "SELECT * FROM skills";
   const params = [];
 
-  if (req.query.category) {
+  if (req.query.category && req.query.category !== "all") {
     sql = "SELECT * FROM skills WHERE category = ?";
     params.push(req.query.category);
   }
@@ -17,11 +17,7 @@ const getSkills = async (req, res) => {
 
   try {
     const [results] = await connection.query(sql, params);
-
-    if (!results.length) {
-      return res.status(404).json({ message: "No skills found" });
-    }
-
+    // Always return an array, even if empty
     res.json(results);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -91,11 +87,4 @@ const updateSkill = async (req, res) => {
   }
 };
 
-export {
-  getSkillsByCategory,
-  getSkillsByResource,
-  getSkills,
-  addSkills,
-  deleteSkill,
-  updateSkill,
-};
+export { getSkills, addSkills, deleteSkill, updateSkill };

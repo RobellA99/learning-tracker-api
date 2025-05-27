@@ -3,8 +3,6 @@ import {
   addSkills,
   deleteSkill,
   getSkills,
-  getSkillsByCategory,
-  getSkillsByResource,
   updateSkill,
 } from "../controllers/skillsController.js";
 
